@@ -40,6 +40,11 @@ public class NewSwingUI implements UIContext {
       graphics.drawLine(i1, i2, i3, i4);
     }
   }
+  
+  public void draw(Ellipse ellipse) {
+	  
+  }
+  
   public void draw(Item item) {
     System.out.println( "Cant draw unknown Item \n");
   }

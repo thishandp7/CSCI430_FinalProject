@@ -9,6 +9,7 @@ class View extends JFrame {
   private JPanel filePanel;
   private JButton lineButton;
   private JButton deleteButton;
+  private JButton ellipseButton;
   private JButton labelButton;
   private JButton selectButton;
   private JButton saveButton;
@@ -19,6 +20,7 @@ class View extends JFrame {
     private String fileName;
   // other buttons to be added as needed;
   private static Model model;
+
   public UIContext getUI() {
     return uiContext;
   }
@@ -90,6 +92,7 @@ class View extends JFrame {
     Container contentpane = getContentPane();
     contentpane.add(buttonPanel, "North");
     contentpane.add(drawingPanel);
+    ellipseButton = new EllipseButton(undoManager, this, drawingPanel);
     lineButton= new LineButton(undoManager, this, drawingPanel);
     labelButton = new LabelButton(undoManager, this, drawingPanel);
     selectButton= new SelectButton(undoManager, this, drawingPanel);
@@ -98,6 +101,8 @@ class View extends JFrame {
     openButton= new OpenButton(undoManager, this);
     undoButton = new UndoButton(undoManager);
     redoButton = new RedoButton(undoManager);
+    
+    buttonPanel.add(ellipseButton);
     buttonPanel.add(lineButton);
     buttonPanel.add(labelButton);
     buttonPanel.add(selectButton);
