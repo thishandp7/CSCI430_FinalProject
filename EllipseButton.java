@@ -26,10 +26,15 @@ public class EllipseButton  extends JButton implements ActionListener {
 		private int pointCount = 0;
 		public void mouseClicked(MouseEvent e) {
 			if(++pointCount == 1) {
-				System.out.println("1st Point " + e.getPoint());
+				ellipseCommand = new EllipseCommand(View.mapPoint(e.getPoint()));
+				undoManager.beginCommand(ellipseCommand);
 			}
 			else if(pointCount == 2) {
-				System.out.println("2nd Point " + e.getPoint());
+				pointCount = 0;
+				ellipseCommand.setDiagonalLinePoint(View.mapPoint(e.getPoint()));
+				drawingPanel.removeMouseListener(this);
+				view.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				undoManager.endCommand(ellipseCommand);
 			}
 		}
 	}

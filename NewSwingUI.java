@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 public class NewSwingUI implements UIContext {
   private Graphics graphics;
@@ -42,7 +43,43 @@ public class NewSwingUI implements UIContext {
   }
   
   public void draw(Ellipse ellipse) {
+	  int x1 = 0;
+	  int y1 = 0;
+	  int x2 = 0;
+	  int y2 = 0;
+	  int width = 0;
+	  int height = 0;
 	  
+	  if(ellipse.getPoint1() != null) {
+		  x1 = Math.round((float) (ellipse.getPoint1().getX()));
+		  y1 = Math.round((float) (ellipse.getPoint1().getY()));
+		  if(ellipse.getPoint2() != null) {
+			  x2 = Math.round((float) (ellipse.getPoint2().getX()));
+			  y2 = Math.round((float) (ellipse.getPoint2().getY()));
+			  width = x2 - x1;
+			  height = y2 - y1;
+			  graphics.setColor(Color.BLUE);
+			  
+			  if(width < 0 && height < 0) {
+				  graphics.drawOval(x2, y2, Math.abs(width), Math.abs(height));
+			  }
+			  else if (width < 0 && height >= 0) {
+				  graphics.drawOval(x1 -  Math.abs(width), y1, Math.abs(width), height);
+			  }
+			  else if (width >= 0 && height < 0) {
+				  graphics.drawOval(x1, y1 - Math.abs(height), width, Math.abs(height));
+			  }
+			  else {
+				  graphics.drawOval(x1, y1, width, height);
+			  }
+		  }
+		  else {
+			  width = 2;
+			  height = 2;
+			  graphics.setColor(Color.RED);
+			  graphics.drawOval(x1, y1, width, height);
+		  }
+	  }
   }
   
   public void draw(Item item) {
