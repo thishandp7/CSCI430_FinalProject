@@ -1,8 +1,11 @@
 import java.awt.*;
+import java.util.Enumeration;
+import java.util.Vector;
 public class Ellipse extends Item{
 
 	private Point point1;
 	private Point point2;
+	private Vector points = new Vector();
 	
 	public Ellipse(Point point1, Point point2) {
 		this.point1 = point1;
@@ -17,8 +20,7 @@ public class Ellipse extends Item{
 	}
 
 	public boolean includes(Point point) {
-		// TODO Auto-generated method stub
-		return false;
+		return ((distance(point, point1 ) < 10.0) || (distance(point, point2)< 10.0));
 	}
 	
 	public void render() {
@@ -43,6 +45,12 @@ public class Ellipse extends Item{
 	
 	public String toString() {
 		return "Ellipse's diagonal line from " + this.point1 + " to " + this.point2;
+	}
+
+	public void renderControlPoints() {
+		points.add(point1);
+	    points.add(point2);
+		uiContext.drawControlPoints(points.elements());
 	}
 
 }

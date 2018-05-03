@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Enumeration;
 public class Label extends Item {
   private Point startingPoint;
   private String text = "";
@@ -25,4 +26,9 @@ public class Label extends Item {
   public Point getStartingPoint() {
     return startingPoint;
   }
+@Override
+public void renderControlPoints() {
+	// TODO Auto-generated method stub
+	uiContext.drawControlPoints((Enumeration)startingPoint);
+}
 }

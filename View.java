@@ -11,12 +11,14 @@ class View extends JFrame {
   private JButton deleteButton;
   private JButton ellipseButton;
   private JButton labelButton;
+  private JButton moveButton;
   private JButton selectButton;
   private JButton saveButton;
   private JButton openButton;
   private JButton undoButton;
   private JButton redoButton;
   private static UndoManager undoManager;
+  private boolean controlPoints = false;
     private String fileName;
   // other buttons to be added as needed;
   private static Model model;
@@ -33,6 +35,15 @@ class View extends JFrame {
   public static void setUndoManager(UndoManager undoManager) {
     View.undoManager = undoManager;
   }
+  
+  public void enableControlPoints(){
+	  controlPoints = true;
+  }
+  
+  public void disableControlPoints(){
+	  controlPoints = false;
+  }
+
   private class DrawingPanel extends JPanel {
     private MouseListener currentMouseListener;
     private KeyListener currentKeyListener;
@@ -51,8 +62,16 @@ class View extends JFrame {
       g.setColor(Color.RED);
       enumeration = model.getSelectedItems();
       while (enumeration.hasMoreElements()) {
-        ((Item) enumeration.nextElement()).render();
+        ((Item) enumeration.nextElement()).render();;
       }
+      
+      if(controlPoints) {
+    	Enumeration cEnumeration = model.getItems();
+    	while (cEnumeration.hasMoreElements()) {
+    		((Item) cEnumeration.nextElement()).renderControlPoints();
+    	}  	  
+      }
+      
     }
     public void addMouseListener(MouseListener newListener) {
       removeMouseListener(currentMouseListener);
@@ -96,6 +115,7 @@ class View extends JFrame {
     lineButton= new LineButton(undoManager, this, drawingPanel);
     labelButton = new LabelButton(undoManager, this, drawingPanel);
     selectButton= new SelectButton(undoManager, this, drawingPanel);
+    moveButton = new MoveButton(undoManager, this, drawingPanel);
     deleteButton= new DeleteButton(undoManager);
     saveButton= new SaveButton(undoManager, this);
     openButton= new OpenButton(undoManager, this);
@@ -106,6 +126,7 @@ class View extends JFrame {
     buttonPanel.add(lineButton);
     buttonPanel.add(labelButton);
     buttonPanel.add(selectButton);
+    buttonPanel.add(moveButton);
     buttonPanel.add(deleteButton);
     buttonPanel.add(saveButton);
     buttonPanel.add(openButton);

@@ -1,7 +1,10 @@
 import java.awt.*;
+import java.util.Enumeration;
+import java.util.Vector;
 public class Line extends Item {
   private Point point1;
   private Point point2;
+  private Vector points = new Vector();
   public Line(Point point1, Point point2) {
     this.point1 = point1;
     this.point2 = point2;
@@ -17,7 +20,12 @@ public class Line extends Item {
   public void render() {
     uiContext.draw(this);
   }
-  public void setPoint1(Point point) {
+  public void renderControlPoints() {
+	  points.add(point1);
+	  points.add(point2);
+	  uiContext.drawControlPoints(points.elements());
+  }
+  public void setPoint1(Point point) {	
     point1 = point;
   }
   public void setPoint2(Point point) {

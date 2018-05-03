@@ -1,5 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.util.Enumeration;
+import java.util.Vector;
 public class NewSwingUI implements UIContext {
   private Graphics graphics;
   private static NewSwingUI swingUI;
@@ -23,6 +26,8 @@ public class NewSwingUI implements UIContext {
     int length = graphics.getFontMetrics().stringWidth(label.getText());
     graphics.drawString("_", (int) label.getStartingPoint().getX() + length, (int) label.getStartingPoint().getY());
   }
+
+
   public void draw(Line line) {
     int i1 = 0;
     int i2 = 0;
@@ -74,15 +79,26 @@ public class NewSwingUI implements UIContext {
 			  }
 		  }
 		  else {
-			  width = 2;
-			  height = 2;
+			  width = 4;
+			  height = 4;
 			  graphics.setColor(Color.RED);
-			  graphics.drawOval(x1, y1, width, height);
+			  graphics.fillOval(x1, y1, width, height);
 		  }
 	  }
   }
   
   public void draw(Item item) {
     System.out.println( "Cant draw unknown Item \n");
+  }
+
+  public void drawControlPoints(Enumeration points) {
+	  graphics.setColor(Color.BLACK);
+	  while(points.hasMoreElements()) {
+		  Point p = (Point)(points.nextElement());
+		  if(p != null) {
+			  graphics.fillRect(p.x-3, p.y-3, 6, 6);
+		  }
+	  }
+		
   }
 }

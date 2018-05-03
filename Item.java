@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Vector;
 import java.awt.*;
 public abstract class Item implements Serializable {
   protected static UIContext uiContext;
@@ -11,7 +12,8 @@ public abstract class Item implements Serializable {
     double yDifference = point1.getY() - point2.getY();
     return ((double) (Math.sqrt(xDifference * xDifference + yDifference * yDifference)));
   }
-  public  void render() {
+  public void render() {
     uiContext.draw(this);
   }
+  public abstract void renderControlPoints();
 }
