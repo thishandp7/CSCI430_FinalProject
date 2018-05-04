@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.Vector;
 import java.awt.*;
 public abstract class Item implements Serializable {
+  private Vector points;
   protected static UIContext uiContext;
   public static void setUIContext(UIContext uiContext) {
     Item.uiContext = uiContext;
@@ -16,4 +17,5 @@ public abstract class Item implements Serializable {
     uiContext.draw(this);
   }
   public abstract void renderControlPoints();
+  public abstract void moveObject(Point point);
 }

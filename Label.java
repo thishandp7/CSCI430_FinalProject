@@ -31,4 +31,9 @@ public void renderControlPoints() {
 	// TODO Auto-generated method stub
 	uiContext.drawControlPoints((Enumeration)startingPoint);
 }
+@Override
+public void moveObject(Point point) {
+	// TODO Auto-generated method stub
+	
+}
 }

@@ -53,4 +53,9 @@ public class Ellipse extends Item{
 		uiContext.drawControlPoints(points.elements());
 	}
 
+	public void moveObject(Point point) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

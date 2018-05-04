@@ -63,7 +63,6 @@ public class NewSwingUI implements UIContext {
 			  y2 = Math.round((float) (ellipse.getPoint2().getY()));
 			  width = x2 - x1;
 			  height = y2 - y1;
-			  graphics.setColor(Color.BLUE);
 			  
 			  if(width < 0 && height < 0) {
 				  graphics.drawOval(x2, y2, Math.abs(width), Math.abs(height));
@@ -81,7 +80,6 @@ public class NewSwingUI implements UIContext {
 		  else {
 			  width = 4;
 			  height = 4;
-			  graphics.setColor(Color.RED);
 			  graphics.fillOval(x1, y1, width, height);
 		  }
 	  }

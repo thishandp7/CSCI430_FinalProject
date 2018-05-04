@@ -2,26 +2,52 @@ import java.awt.*;
 import java.util.*;
 public class MoveCommand extends Command{
 	private Item item;
+	private Point currentPosition;
+	private Point movePosition;
+	private boolean moveComplete;
 	public MoveCommand() {
 		
 	}
 	
-	public void showControlPoints() {
+	public boolean pickItem(Point point) {
 		Enumeration enumeration = model.getItems();
+		while(enumeration.hasMoreElements()) {
+			item = (Item)(enumeration.nextElement());
+			if (item.includes(point)) {
+				//model.removeItem(item);
+				return true;
+			}
+		}
+		return false;
+	}
+	public void setCurrentPosition(Point point) {
+		currentPosition = point;
+	}
+	public void moveItem(Point point) {
+		if(item != null) {
+			item.moveObject(point);
+			movePosition = point;
+		}
+	}
+	
+	public void placeItem() {
+		moveComplete = true;
 	}
 
 	public boolean undo() {
-		// TODO Auto-generated method stub
-		return false;
+		System.out.println(item);
+		item.moveObject(movePosition);
+		return true;
 	}
 
 	public boolean redo() {
-		// TODO Auto-generated method stub
-		return false;
+		item.moveObject(movePosition);
+		return true;
 	}
 
 	public void execute() {
-		// TODO Auto-generated method stub
-		
+//		if(moveComplete) {
+//			item.moveObject(movePosition);
+//		}
 	}
 }
