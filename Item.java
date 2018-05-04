@@ -18,4 +18,5 @@ public abstract class Item implements Serializable {
   }
   public abstract void renderControlPoints();
   public abstract void moveObject(Point point);
+  public abstract void setOrginPoints();
 }

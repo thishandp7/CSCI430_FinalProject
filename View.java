@@ -19,6 +19,8 @@ class View extends JFrame {
   private JButton redoButton;
   private static UndoManager undoManager;
   private boolean controlPoints = false;
+  private boolean isMoving = false;
+  private Item movingItem;
     private String fileName;
   // other buttons to be added as needed;
   private static Model model;
@@ -42,6 +44,27 @@ class View extends JFrame {
   
   public void disableControlPoints(){
 	  controlPoints = false;
+  }
+  
+  public void setMovingItem(Point point) {
+	  Item item;
+	  Enumeration enumeration = model.getItems();
+		while(enumeration.hasMoreElements()) {
+			item = (Item)(enumeration.nextElement());
+			if (item.includes(point)) {
+				movingItem = item;
+				System.out.println("here!");
+				break;
+			}
+		}
+  }
+  
+  public void moving() {
+	  isMoving = true;
+  }
+  
+  public void notMoving() {
+	  isMoving = false;
   }
 
   private class DrawingPanel extends JPanel {
@@ -70,6 +93,14 @@ class View extends JFrame {
     	while (cEnumeration.hasMoreElements()) {
     		((Item) cEnumeration.nextElement()).renderControlPoints();
     	}  	  
+      }
+      
+      if(isMoving) {
+    	g.setColor(Color.gray); 
+    	movingItem.render();
+      }
+      else {
+        g.setColor(Color.BLUE);
       }
       
     }

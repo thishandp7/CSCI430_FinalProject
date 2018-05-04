@@ -58,4 +58,10 @@ public class Ellipse extends Item{
 		
 	}
 
+	@Override
+	public void setOrginPoints() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

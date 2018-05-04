@@ -36,4 +36,9 @@ public void moveObject(Point point) {
 	// TODO Auto-generated method stub
 	
 }
+@Override
+public void setOrginPoints() {
+	// TODO Auto-generated method stub
+	
+}
 }

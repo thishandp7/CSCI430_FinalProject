@@ -28,10 +28,9 @@ public class Line extends Item {
 	  points.clear();
 	  points.add(point1);
 	  points.add(point2);
-	  setOrginPoints();
 	  uiContext.drawControlPoints(points.elements());
   }
-  private void setOrginPoints() {
+  public void setOrginPoints() {
 	orignPoint1 = this.point1;
 	orignPoint2 = this.point2;
   }
@@ -50,9 +49,9 @@ public class Line extends Item {
   public String toString() {
     return "Line  from " + point1 + " to " + point2;
   }
-	public void moveObject(Point point) {
-		this.point1 = new Point(orignPoint1.x + point.x, orignPoint1.y + point.y);
-		this.point2 = new Point(orignPoint2.x + point.x, orignPoint2.y + point.y);
-	}
+  public void moveObject(Point point) {
+	this.point1 = new Point(orignPoint1.x + point.x, orignPoint1.y + point.y);
+	this.point2 = new Point(orignPoint2.x + point.x, orignPoint2.y + point.y);
+  }
 }
 

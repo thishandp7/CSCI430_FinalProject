@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.Enumeration;
 
 public interface UIContext {

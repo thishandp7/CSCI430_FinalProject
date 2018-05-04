@@ -35,10 +35,13 @@ public class MoveButton extends JButton implements ActionListener {
 			view.refresh();
 			if(!isPicked) {
 				isPicked = moveCommand.pickItem(View.mapPoint(e.getPoint()));
+				view.setMovingItem(View.mapPoint(e.getPoint()));
 				if(isPicked) {
+					view.moving();
 					drawingPanel.addMouseMotionListener(this);
 					undoManager.beginCommand(moveCommand);
 					selectedPosition = e.getPoint();
+					moveCommand.setCurrentPosition(selectedPosition);
 				}
 			}
 			else if(isPicked) {
@@ -46,6 +49,7 @@ public class MoveButton extends JButton implements ActionListener {
 				drawingPanel.removeMouseListener(this);
 				view.removeMouseListener(this);
 				isPicked = false;
+				view.notMoving();
 				undoManager.endCommand(moveCommand);
 			}
 		}
