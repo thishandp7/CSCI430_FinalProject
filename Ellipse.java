@@ -5,6 +5,10 @@ public class Ellipse extends Item{
 
 	private Point point1;
 	private Point point2;
+	
+	private Point orignPoint1;
+	private Point orignPoint2;
+	
 	private Vector points = new Vector();
 	
 	public Ellipse(Point point1, Point point2) {
@@ -48,20 +52,20 @@ public class Ellipse extends Item{
 	}
 
 	public void renderControlPoints() {
+		points.clear();
 		points.add(point1);
 	    points.add(point2);
 		uiContext.drawControlPoints(points.elements());
 	}
 
 	public void moveObject(Point point) {
-		// TODO Auto-generated method stub
-		
+		this.point1 = new Point(orignPoint1.x + point.x, orignPoint1.y + point.y);
+		this.point2 = new Point(orignPoint2.x + point.x, orignPoint2.y + point.y);
 	}
 
-	@Override
 	public void setOrginPoints() {
-		// TODO Auto-generated method stub
-		
+		orignPoint1 = this.point1;
+		orignPoint2 = this.point2;
 	}
 
 }

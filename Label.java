@@ -1,7 +1,10 @@
 import java.awt.*;
 import java.util.Enumeration;
+import java.util.Vector;
 public class Label extends Item {
   private Point startingPoint;
+  private Point orignPoint;
+  private Vector points = new Vector();
   private String text = "";
   public Label(Point point) {
     startingPoint = point;
@@ -26,19 +29,19 @@ public class Label extends Item {
   public Point getStartingPoint() {
     return startingPoint;
   }
-@Override
+
 public void renderControlPoints() {
-	// TODO Auto-generated method stub
-	uiContext.drawControlPoints((Enumeration)startingPoint);
+	points.clear();
+	points.add(startingPoint);
+	uiContext.drawControlPoints(points.elements());
 }
-@Override
+
 public void moveObject(Point point) {
-	// TODO Auto-generated method stub
+	this.startingPoint = new Point(orignPoint.x + point.x, orignPoint.y + point.y);
 	
 }
-@Override
+
 public void setOrginPoints() {
-	// TODO Auto-generated method stub
-	
+	orignPoint = this.startingPoint;
 }
 }

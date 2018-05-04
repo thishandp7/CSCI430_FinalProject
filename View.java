@@ -53,7 +53,6 @@ class View extends JFrame {
 			item = (Item)(enumeration.nextElement());
 			if (item.includes(point)) {
 				movingItem = item;
-				System.out.println("here!");
 				break;
 			}
 		}
