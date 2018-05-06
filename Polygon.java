@@ -14,6 +14,10 @@ public class Polygon extends Item{
 		points.add(point);
 	}
 	
+	public void addPointAt(int index, Point point) {
+		points.add(index, point);
+	}
+	
 	public void removePoint(int index) {
 		points.remove(index);
 	}

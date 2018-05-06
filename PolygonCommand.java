@@ -15,7 +15,6 @@ public class PolygonCommand extends Command{
 	
 	public PolygonCommand(Point point) {
 		polygon = new Polygon();
-		System.out.println(polygon.getPointCount());
 		polygon.addPoint(point);
 		firstPoint = point;
 		pointCount++;
@@ -24,6 +23,12 @@ public class PolygonCommand extends Command{
 	public void setNewPoint(Point point) {
 		polygon.addPoint(point);
 		pointCount++;
+	}
+	
+	public Line proposedNextPoint(Point point) {
+		Point last = polygon.pointAt(pointCount - 1);
+		return new Line(last, point);
+		
 	}
 	
 	@Override
@@ -51,7 +56,6 @@ public class PolygonCommand extends Command{
 	@Override
 	public void execute() {
 		model.removeItem(polygon);
-		System.out.println(polygon.getPointCount());
 		if(pointCount != 0 && !delete) {
 			model.addItem(polygon);
 		}

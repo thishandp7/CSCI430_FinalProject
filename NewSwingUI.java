@@ -114,6 +114,7 @@ public class NewSwingUI implements UIContext {
 	 }
   }
   
+  
   public void draw(Item item) {
     System.out.println( "Cant draw unknown Item \n");
   }

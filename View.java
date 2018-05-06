@@ -22,6 +22,7 @@ class View extends JFrame {
   private boolean controlPoints = false;
   private boolean isMoving = false;
   private Item movingItem;
+  private Item proposedItem;
     private String fileName;
   // other buttons to be added as needed;
   private static Model model;
@@ -103,6 +104,11 @@ class View extends JFrame {
         g.setColor(Color.BLUE);
       }
       
+      if(proposedItem != null) {
+    	  g.setColor(Color.RED);
+    	  proposedItem.render();
+      }
+      
     }
     public void addMouseListener(MouseListener newListener) {
       removeMouseListener(currentMouseListener);
@@ -118,6 +124,11 @@ class View extends JFrame {
       removeFocusListener(currentFocusListener);
       currentFocusListener =  newListener;
       super.addFocusListener(newListener);
+    }
+    
+    public void drawProposedPoint(Item item) {
+    	System.out.println("Draw called!");
+    	item.render();
     }
   }
   public void setFileName(String fileName) {
@@ -177,4 +188,8 @@ class View extends JFrame {
     // should be in drawing panel
     return point;
   }
+public void drawProposedNextPoint(Line newLine) {
+	proposedItem = newLine;
+	
+}
 }
