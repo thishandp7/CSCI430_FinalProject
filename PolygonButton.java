@@ -37,6 +37,7 @@ public class PolygonButton extends JButton implements ActionListener{
 			if(++pointCount == 1) {
 				polygonCommand = new PolygonCommand(View.mapPoint(e.getPoint()));
 				undoManager.beginCommand(polygonCommand);
+				view.refresh();
 			}
 			else {
 				if(polygonCommand.hitEndPoint(View.mapPoint(e.getPoint()))) {
@@ -44,10 +45,12 @@ public class PolygonButton extends JButton implements ActionListener{
 					drawingPanel.removeMouseListener(this);
 					view.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 					undoManager.endCommand(polygonCommand);
+					pointCount = 0;
 				}
 				else {
 					pointCount++;
 					polygonCommand.setNewPoint(View.mapPoint(e.getPoint()));
+					undoManager.beginCommand(polygonCommand);
 				}
 			}
 			

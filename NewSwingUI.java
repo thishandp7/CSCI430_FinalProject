@@ -85,6 +85,35 @@ public class NewSwingUI implements UIContext {
 	  }
   }
   
+  public void draw(Polygon polygon) {
+	 int i1 = 0;
+	 int i2 = 0;
+	 int i3 = 0;
+	 int i4 = 0;
+	 boolean complete = false;
+	 Point point1, point2, initalPoint;
+	 if(polygon.getPointCount() > 1) {
+		 if(polygon.pointAt(0).equals(polygon.pointAt(polygon.getPointCount() - 1))) {
+			 complete = true; 
+		 } 
+	 }
+	 if(!complete) {
+		 initalPoint = polygon.pointAt(0);
+		 graphics.fillRect(initalPoint.x - 3, initalPoint.y - 3, 6, 6);
+	 }
+	 if(polygon.getPointCount() > 1) {
+		 for(int i = 1; i < polygon.getPointCount(); i++) {
+			 point1 = polygon.pointAt(i - 1);
+			 point2 = polygon.pointAt(i);
+			 i1 = Math.round((float) (point1.getX()));
+		     i2 = Math.round((float) (point1.getY()));
+		     i3 = Math.round((float) (point2.getX()));
+		     i4 = Math.round((float) (point2.getY()));
+		     graphics.drawLine(i1, i2, i3, i4);
+		 }
+	 }
+  }
+  
   public void draw(Item item) {
     System.out.println( "Cant draw unknown Item \n");
   }

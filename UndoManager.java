@@ -35,6 +35,7 @@ public class UndoManager {
         redoStack.push(command);
       }
     }
+    System.out.println("redoStack: " + redoStack.size());
   }
   public void redo() {
     if (!(redoStack.empty())) {
@@ -44,5 +45,6 @@ public class UndoManager {
         history.push(command);
       }
     }
+    System.out.println("redoStack: " + redoStack.size());
   }
 }
