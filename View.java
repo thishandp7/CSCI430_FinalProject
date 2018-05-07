@@ -11,6 +11,7 @@ class View extends JFrame {
   private JButton deleteButton;
   private JButton ellipseButton;
   private JButton polygonButton;
+  private JButton bsplineButton;
   private JButton labelButton;
   private JButton moveButton;
   private JButton selectButton;
@@ -155,6 +156,7 @@ class View extends JFrame {
     contentpane.add(drawingPanel);
     ellipseButton = new EllipseButton(undoManager, this, drawingPanel);
     polygonButton = new PolygonButton(undoManager, this, drawingPanel);
+    bsplineButton = new BsplineButton(undoManager, this, drawingPanel);
     lineButton= new LineButton(undoManager, this, drawingPanel);
     labelButton = new LabelButton(undoManager, this, drawingPanel);
     selectButton= new SelectButton(undoManager, this, drawingPanel);
@@ -167,6 +169,7 @@ class View extends JFrame {
     
     buttonPanel.add(ellipseButton);
     buttonPanel.add(polygonButton);
+    buttonPanel.add(bsplineButton);
     buttonPanel.add(lineButton);
     buttonPanel.add(labelButton);
     buttonPanel.add(selectButton);

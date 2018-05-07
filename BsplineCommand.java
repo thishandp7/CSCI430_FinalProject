@@ -1,40 +1,30 @@
-import java.awt.*;
-import java.text.*;
+import java.awt.Point;
 import java.util.Stack;
-public class PolygonCommand extends Command{
-	private Polygon polygon;
+
+public class BsplineCommand extends Command{
+	private Bspline bspline;
 	private int pointCount = 0;
 	private Point firstPoint;
 	private Point currentPoint;
 	private Stack<Point> pointTracer = new Stack<Point>();
-	public PolygonCommand() {
+	
+	public BsplineCommand() {
 		this(null);
 		pointCount = 0;
 	}
 	
-	public PolygonCommand(Point point) {
-		polygon = new Polygon();
-		polygon.addPoint(point);
+	public BsplineCommand(Point point) {
+		bspline = new Bspline();
+		bspline.addPoint(point);
 		firstPoint = point;
 		pointCount = 1;
 	}
-	
-	public void setNewPoint(Point point) {
-		polygon.addPoint(point);
-		pointCount++;
-	}
-	
-	public Line proposedNextPoint(Point point) {
-		Point last = polygon.pointAt(pointCount - 1);
-		return new Line(last, point);
-		
-	}
-	
+
 	@Override
 	public boolean undo() {
-		currentPoint = polygon.getLastPoint();
+		currentPoint = bspline.getLastPoint();
 		pointTracer.push(currentPoint);
-		polygon.removePoint(--pointCount);
+		bspline.removePoint(--pointCount);
 		execute();
 		return true;
 	}
@@ -42,22 +32,19 @@ public class PolygonCommand extends Command{
 	@Override
 	public boolean redo() {
 		currentPoint = pointTracer.pop();
-		polygon.addPoint(currentPoint);
-		model.addItem(polygon);
+		bspline.addPoint(currentPoint);
+		model.addItem(bspline);
 		pointCount++;
 		return true;
 	}
 
 	@Override
 	public void execute() {
-		model.removeItem(polygon);
+		model.removeItem(bspline);
 		if(pointCount > 0) {
-			model.addItem(polygon);
+			model.addItem(bspline);
 		}
-	}
-
-	public void closePolygon() {
-		setNewPoint(new Point(firstPoint));
+		
 	}
 
 	public boolean hitEndPoint(Point mapPoint) {
@@ -66,4 +53,14 @@ public class PolygonCommand extends Command{
 	    return ((double) (Math.sqrt(xDifference * xDifference + yDifference * yDifference))) < 10.0;
 	}
 
+	public void closeCurve() {
+		setNewPoint(new Point(firstPoint));
+		
+	}
+
+	public void setNewPoint(Point mapPoint) {
+		bspline.addPoint(mapPoint);
+		pointCount++;
+	}
+	
 }
