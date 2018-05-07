@@ -6,6 +6,7 @@ public class BsplineCommand extends Command{
 	private int pointCount = 0;
 	private Point firstPoint;
 	private Point currentPoint;
+	private boolean deleteOnUndo;
 	private Stack<Point> pointTracer = new Stack<Point>();
 	
 	public BsplineCommand() {
@@ -22,19 +23,30 @@ public class BsplineCommand extends Command{
 
 	@Override
 	public boolean undo() {
-		currentPoint = bspline.getLastPoint();
-		pointTracer.push(currentPoint);
-		bspline.removePoint(--pointCount);
-		execute();
+		if(deleteOnUndo) {
+			model.removeItem(bspline);
+		}
+		else {
+			currentPoint = bspline.getLastPoint();
+			pointTracer.push(currentPoint);
+			bspline.removePoint(--pointCount);
+			execute();
+		}
 		return true;
 	}
 
 	@Override
 	public boolean redo() {
-		currentPoint = pointTracer.pop();
-		bspline.addPoint(currentPoint);
-		model.addItem(bspline);
-		pointCount++;
+		if(deleteOnUndo) {
+			model.addItem(bspline);
+		}
+		else {
+			currentPoint = pointTracer.pop();
+			bspline.addPoint(currentPoint);
+			model.addItem(bspline);
+			pointCount++;
+		}
+		
 		return true;
 	}
 
@@ -54,13 +66,26 @@ public class BsplineCommand extends Command{
 	}
 
 	public void closeCurve() {
-		setNewPoint(new Point(firstPoint));
-		
+		setNewPoint(pointCount, new Point(firstPoint));
+		bspline.setComplete(true);
+		deleteOnUndo = true;
 	}
 
-	public void setNewPoint(Point mapPoint) {
-		bspline.addPoint(mapPoint);
-		pointCount++;
+	public void setNewPoint(int count, Point mapPoint) {
+		bspline.addPointAt(count, mapPoint);
+		System.out.println("bspline " + ", " + pointCount + ", " + bspline.getPointCount());
+		pointCount = count;
+	}
+
+	public Line proposedNextPoint(Point mapPoint) {
+		if(pointCount > 1) {
+			Point last = bspline.pointAt(pointCount - 2);
+			return new Line(last, mapPoint);
+		}
+		else {
+			return null;
+		}
+		
 	}
 	
 }

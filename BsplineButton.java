@@ -34,10 +34,11 @@ public class BsplineButton extends JButton implements ActionListener{
 	private class MouseHandler extends MouseAdapter{
 		private int pointCount = 0;
 		public void mouseClicked(MouseEvent e) {
-			if(++pointCount == 1) {
+			if(pointCount == 0) {
 				bsplineCommand = new BsplineCommand(View.mapPoint(e.getPoint()));
 				undoManager.beginCommand(bsplineCommand);
 				drawingPanel.addMouseMotionListener(this);
+				pointCount++;
 			}
 			else {
 				if(bsplineCommand.hitEndPoint(View.mapPoint(e.getPoint()))) {
@@ -45,20 +46,20 @@ public class BsplineButton extends JButton implements ActionListener{
 					undoManager.beginCommand(bsplineCommand);
 					drawingPanel.removeMouseListener(this);
 					view.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-					//view.drawProposedNextPoint(null);
+					view.drawProposedNextPoint(null);
 					drawingPanel.removeMouseMotionListener(this);
 					undoManager.endCommand(bsplineCommand);
 					pointCount = 0;
 				}
 				else {
 					pointCount++;
-					bsplineCommand.setNewPoint(View.mapPoint(e.getPoint()));
 					undoManager.beginCommand(bsplineCommand);
 				}
 			}
 		}
 		public void mouseMoved(MouseEvent e) {
-			
+			bsplineCommand.setNewPoint(pointCount, View.mapPoint(e.getPoint()));
+			view.repaint();
 		}
 		
 	}

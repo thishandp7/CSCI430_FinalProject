@@ -115,26 +115,76 @@ public class NewSwingUI implements UIContext {
   }
   
   public void draw(Bspline bspline) {
-	  System.out.println( "draw bspline");
-	  int m = 50, n = bspline.getPointCount();
-      float xA, yA, xB, yB, xC, yC, xD, yD,
-         a0, a1, a2, a3, b0, b1, b2, b3, x=0, y=0, x0, y0;
-      boolean first = true;
-      for (int i=1; i<n-2; i++)
-      {  xA=bspline.pointAt(i-1).x; xB=bspline.pointAt(i).x; xC=bspline.pointAt(i+1).x; xD=bspline.pointAt(i+2).x;
-         yA=bspline.pointAt(i-1).y; yB=bspline.pointAt(i).y; yC=bspline.pointAt(i+1).y; yD=bspline.pointAt(i+2).y;
-         a3=(-xA+3*(xB-xC)+xD)/6; b3=(-yA+3*(yB-yC)+yD)/6;
-         a2=(xA-2*xB+xC)/2;       b2=(yA-2*yB+yC)/2;
-         a1=(xC-xA)/2;            b1=(yC-yA)/2;
-         a0=(xA+4*xB+xC)/6;       b0=(yA+4*yB+yC)/6;
+	 int m = 50, n = bspline.getPointCount();
+     float xA, yA, xB, yB, xC, yC, xD, yD,
+        a0, a1, a2, a3, b0, b1, b2, b3, x=0, y=0, x0, y0;
+     boolean first = true;
+     boolean complete = false;
+     
+	 if(bspline.getPointCount() > 3) {
+		 if(bspline.pointAt(0).equals(bspline.pointAt(bspline.getPointCount() - 1)) ||
+				 bspline.pointAt(0).equals(bspline.pointAt(bspline.getPointCount() - 3))) {
+			 complete = true; 
+		 } 
+	 }
+ 	 
+     if(bspline.isComplete()) {
+    	 Point p1 = bspline.pointAt(0);
+         Point p2 = bspline.pointAt(1);
+         Point p3 = bspline.pointAt(2);
+         Point p4 = bspline.pointAt(3);
+         Point beforeLast = bspline.pointAt(n - 1); 
+         bspline.addPointAt(n, beforeLast);
+         bspline.addPointAt(n + 1, p1);
+         bspline.addPointAt(n + 2, p2);
+         bspline.addPointAt(n + 3, p3);
+         n += 4;
+         bspline.setComplete(false);
+     }
+
+      for(int i = 0; (i < n) && (i < 2) && !complete ; i++) {
+    	  graphics.fillRect(bspline.pointAt(i).x - 3, bspline.pointAt(i).y - 3, 6, 6);
+      }
+      for (int i=1; i < n-2; i++)
+      {  
+    	 xA = bspline.pointAt(i-1).x; 
+    	 xB = bspline.pointAt(i).x; 
+    	 xC = bspline.pointAt(i+1).x; 
+    	 xD = bspline.pointAt(i+2).x;
+    	 
+         yA = bspline.pointAt(i-1).y; 
+         yB = bspline.pointAt(i).y; 
+         yC = bspline.pointAt(i+1).y; 
+         yD = bspline.pointAt(i+2).y;
+         
+         a3 = (-xA+3*(xB-xC)+xD)/6; 
+         b3 = (-yA+3*(yB-yC)+yD)/6;
+         
+         a2 = (xA-2*xB+xC)/2;       
+         b2 = (yA-2*yB+yC)/2;
+         
+         a1 = (xC-xA)/2;            
+         b1 = (yC-yA)/2;
+         
+         a0 = (xA+4*xB+xC)/6;       
+         b0 = (yA+4*yB+yC)/6;
+         
          for (int j=0; j<=m; j++)
-         {  x0 = x; y0 = y;
+         { 
+        	x0 = x;
+        	y0 = y;
+        	
             float t = (float)j/(float)m;
+            
             x = ((a3*t+a2)*t+a1)*t+a0;
             y = ((b3*t+b2)*t+b1)*t+b0;
-            if (first) first = false; 
-            else 
-            	graphics.drawLine((int)x0, (int)y0, (int)x, (int)y);
+            
+            if (first) {
+            	first = false; 
+            }
+            else {
+            	graphics.drawLine((int)x0, (int)y0, (int)x, (int)y);	
+            }	
          }
       }
   }

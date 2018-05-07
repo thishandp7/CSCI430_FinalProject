@@ -24,7 +24,7 @@ class View extends JFrame {
   private boolean isMoving = false;
   private Item movingItem;
   private Item proposedItem;
-    private String fileName;
+  private String fileName;
   // other buttons to be added as needed;
   private static Model model;
 
@@ -191,8 +191,8 @@ class View extends JFrame {
     // should be in drawing panel
     return point;
   }
-public void drawProposedNextPoint(Line newLine) {
-	proposedItem = newLine;
-	
-}
+	public void drawProposedNextPoint(Line newLine) {
+		proposedItem = newLine;
+		
+	}
 }
