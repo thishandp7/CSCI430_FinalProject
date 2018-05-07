@@ -44,6 +44,7 @@ public class PolygonButton extends JButton implements ActionListener{
 			else {
 				if(polygonCommand.hitEndPoint(View.mapPoint(e.getPoint()))) {
 					polygonCommand.closePolygon();
+					undoManager.beginCommand(polygonCommand);
 					drawingPanel.removeMouseListener(this);
 					view.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 					view.drawProposedNextPoint(null);

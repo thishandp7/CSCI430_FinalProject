@@ -17,7 +17,7 @@ public class PolygonCommand extends Command{
 		polygon = new Polygon();
 		polygon.addPoint(point);
 		firstPoint = point;
-		pointCount++;
+		pointCount = 1;
 	}
 	
 	public void setNewPoint(Point point) {
@@ -36,9 +36,6 @@ public class PolygonCommand extends Command{
 		currentPoint = polygon.getLastPoint();
 		pointTracer.push(currentPoint);
 		polygon.removePoint(--pointCount);
-		if(pointCount == 1) {
-			delete = true;
-		}
 		execute();
 		return true;
 	}
@@ -49,14 +46,13 @@ public class PolygonCommand extends Command{
 		polygon.addPoint(currentPoint);
 		model.addItem(polygon);
 		pointCount++;
-		delete = false;
 		return true;
 	}
 
 	@Override
 	public void execute() {
 		model.removeItem(polygon);
-		if(pointCount != 0 && !delete) {
+		if(pointCount > 0) {
 			model.addItem(polygon);
 		}
 	}

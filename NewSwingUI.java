@@ -97,7 +97,7 @@ public class NewSwingUI implements UIContext {
 			 complete = true; 
 		 } 
 	 }
-	 if(!complete) {
+	 if(!complete && polygon.getPointCount() > 0) {
 		 initalPoint = polygon.pointAt(0);
 		 graphics.fillRect(initalPoint.x - 3, initalPoint.y - 3, 6, 6);
 	 }

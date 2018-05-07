@@ -83,4 +83,9 @@ public class Polygon extends Item{
 		return points.lastElement();
 	}
 
+	public void clear() {
+		points.clear();
+		
+	}
+
 }
