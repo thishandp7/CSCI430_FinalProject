@@ -42,6 +42,9 @@ public class BsplineButton extends JButton implements ActionListener{
 			}
 			else {
 				if(bsplineCommand.hitEndPoint(View.mapPoint(e.getPoint()))) {
+					for(int i = 0; i < pointCount - 1; i++) {
+						undoManager.clearUndoStack();
+					}
 					bsplineCommand.closeCurve();
 					undoManager.beginCommand(bsplineCommand);
 					drawingPanel.removeMouseListener(this);

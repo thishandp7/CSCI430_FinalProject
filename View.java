@@ -141,7 +141,7 @@ class View extends JFrame {
   }
 
   public View() {
-    super("Drawing Program 1.1  Untitled");
+    super("Drawing Program 1.4  Untitled");
     fileName = null;
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent event) {

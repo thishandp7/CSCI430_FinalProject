@@ -45,4 +45,7 @@ public class UndoManager {
       }
     }
   }
+public void clearUndoStack() {
+	history.pop();
+}
 }

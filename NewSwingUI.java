@@ -116,12 +116,11 @@ public class NewSwingUI implements UIContext {
   
   public void draw(Bspline bspline) {
 	 int m = 50, n = bspline.getPointCount();
-     float xA, yA, xB, yB, xC, yC, xD, yD,
+     float xA=0, yA=0, xB, yB, xC=0, yC=0, xD=0, yD=0,
         a0, a1, a2, a3, b0, b1, b2, b3, x=0, y=0, x0, y0;
      boolean first = true;
      boolean complete = false;
-     
-	 if(bspline.getPointCount() > 3) {
+	 if(bspline.getPointCount() > 3 && bspline.pointAt(bspline.getPointCount() - 1) != null) {
 		 if(bspline.pointAt(0).equals(bspline.pointAt(bspline.getPointCount() - 1)) ||
 				 bspline.pointAt(0).equals(bspline.pointAt(bspline.getPointCount() - 3))) {
 			 complete = true; 
@@ -129,33 +128,51 @@ public class NewSwingUI implements UIContext {
 	 }
  	 
      if(bspline.isComplete()) {
+    	 System.out.println("isComplete ");
     	 Point p1 = bspline.pointAt(0);
          Point p2 = bspline.pointAt(1);
          Point p3 = bspline.pointAt(2);
          Point p4 = bspline.pointAt(3);
-         Point beforeLast = bspline.pointAt(n - 1); 
-         bspline.addPointAt(n, beforeLast);
-         bspline.addPointAt(n + 1, p1);
-         bspline.addPointAt(n + 2, p2);
-         bspline.addPointAt(n + 3, p3);
-         n += 4;
+         Point beforeLast = bspline.pointAt(n - 2); 
+         bspline.addPointAt(n, p2);
+         bspline.addPointAt(n + 1, p3);
+         n += 2;
          bspline.setComplete(false);
      }
 
-      for(int i = 0; (i < n) && (i < 2) && !complete ; i++) {
+      for(int i = 0; (i < n) && (i < 3) && !complete ; i++) {
     	  graphics.fillRect(bspline.pointAt(i).x - 3, bspline.pointAt(i).y - 3, 6, 6);
       }
+      
+      System.out.println("count " + bspline.getPointCount());
+      
+      for(int i = 0; i < bspline.getPointCount(); i++) {
+    	  System.out.println(i + ", " + bspline.pointAt(i));  
+      }
+      
       for (int i=1; i < n-2; i++)
       {  
-    	 xA = bspline.pointAt(i-1).x; 
-    	 xB = bspline.pointAt(i).x; 
-    	 xC = bspline.pointAt(i+1).x; 
-    	 xD = bspline.pointAt(i+2).x;
     	 
-         yA = bspline.pointAt(i-1).y; 
+    	 if(bspline.pointAt(i-1) != null) {
+    		 xA = bspline.pointAt(i-1).x;
+    		 yA = bspline.pointAt(i-1).y; 
+    	 }
+    	 
+    	 xB = bspline.pointAt(i).x; 
+    	 if(bspline.pointAt(i+1) != null) {
+    		 xC = bspline.pointAt(i+1).x; 
+        	 yC = bspline.pointAt(i+1).y;       
+    	 }
+    	 
+    	 if(bspline.pointAt(i+2) != null) {
+    		 xD = bspline.pointAt(i+2).x;
+    		 yD = bspline.pointAt(i+2).y;
+    	 }
+    	 
+    	 
+         
          yB = bspline.pointAt(i).y; 
-         yC = bspline.pointAt(i+1).y; 
-         yD = bspline.pointAt(i+2).y;
+        
          
          a3 = (-xA+3*(xB-xC)+xD)/6; 
          b3 = (-yA+3*(yB-yC)+yD)/6;
