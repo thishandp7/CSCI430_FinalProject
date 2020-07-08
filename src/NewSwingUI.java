@@ -128,7 +128,6 @@ public class NewSwingUI implements UIContext {
 	 }
  	 
      if(bspline.isComplete()) {
-    	 System.out.println("isComplete ");
     	 Point p1 = bspline.pointAt(0);
          Point p2 = bspline.pointAt(1);
          Point p3 = bspline.pointAt(2);
@@ -142,12 +141,6 @@ public class NewSwingUI implements UIContext {
 
       for(int i = 0; (i < n) && (i < 3) && !complete ; i++) {
     	  graphics.fillRect(bspline.pointAt(i).x - 3, bspline.pointAt(i).y - 3, 6, 6);
-      }
-      
-      System.out.println("count " + bspline.getPointCount());
-      
-      for(int i = 0; i < bspline.getPointCount(); i++) {
-    	  System.out.println(i + ", " + bspline.pointAt(i));  
       }
       
       for (int i=1; i < n-2; i++)

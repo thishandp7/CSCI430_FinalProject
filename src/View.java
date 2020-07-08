@@ -128,13 +128,12 @@ class View extends JFrame {
     }
     
     public void drawProposedPoint(Item item) {
-    	System.out.println("Draw called!");
     	item.render();
     }
   }
   public void setFileName(String fileName) {
     this.fileName = fileName;
-    setTitle("Drawing Program 1.1  " + fileName);
+    setTitle("Drawing Program 1.4  " + fileName);
   }
   public String getFileName() {
     return fileName;
@@ -179,7 +178,7 @@ class View extends JFrame {
     buttonPanel.add(openButton);
     buttonPanel.add(undoButton);
     buttonPanel.add(redoButton);
-    this.setSize(966, 443);
+    this.setSize(975, 445);
   }
   public void refresh() {
     // code to access the Model update the contents of the drawing panel.
