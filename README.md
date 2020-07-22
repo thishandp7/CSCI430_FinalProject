@@ -16,6 +16,17 @@ select each shape indiviually and move them as desired. User can undo and redo e
 3)	Saving and Opening a file
 4)	Undo and Redo operations
 
+### 1) Drawing the shapes
+These groups of buttons are used to draw different shapes on the canvas. The user can click and select one of the shapes they want to draw and then draw it on the canvas.
+### 2) Editing the Shapes
+These sets of buttons allow the user to makes changes to the shapes that are already drawn in the canvas.
+- Select button: Allows the user the select one or multiple items in the canvas
+- Move button: Allows the user to move the selected item(s)
+- Delete button: Allows the user to delete the selected item(s)
+### 3) Saving and Opening a file
+Save, and Open buttons allow the user to save and retrieve the canvas from the local storage.
+### 4) Undo and Redo operations
+These two buttons allow the user to undo or redo any operations made in the program except for saving and opening.
 
 
 ## System Architecture
