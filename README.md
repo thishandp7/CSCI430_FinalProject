@@ -1,7 +1,7 @@
 # Drawing-Program
 A simple drawing program that draws 2D shapes such as lines, ellipse, polygon, text and B-Splines. After drawing the shape in the canvas user can 
 select each shape indiviually and move them as desired. User can undo and redo each command that's been executed. Further the edited file can be saved and retrived.
-## How to run the program: (Requires XMing [link to setup XMing](http://laptops.eng.uci.edu/software-installation/using-linux/how-to-configure-xming-putty))
+## How to run the program: (Requires [XMing](http://laptops.eng.uci.edu/software-installation/using-linux/how-to-configure-xming-putty))
   ```
   javac src/DrawingProgram.java
   java src/DrawingProgram
